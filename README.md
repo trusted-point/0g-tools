@@ -55,7 +55,7 @@
   - [1. Extract persistent\_peers from our endpoint](#1-extract-persistent_peers-from-our-endpoint)
   - [2. Restart the node](#2-restart-the-node-1)
   - [3. Check the synchronization status](#3-check-the-synchronization-status-1)
-- [Download Snapshot](#download-snapshot)
+- **[Download Snapshot](#download-snapshot)**
   - [1. Download latest snapshot from our endpoint](#1-download-latest-snapshot-from-our-endpoint)
   - [2. Stop the node](#2-stop-the-node)
   - [3. Backup priv\_validator\_state.json](#3-backup-priv_validator_statejson)
