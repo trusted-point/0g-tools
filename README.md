@@ -143,7 +143,7 @@ git checkout v1.0.0-testnet
 make install
 evmosd version
 ```
-### 4. Setup variables
+### 4. Set up variables
 ```bash
 # Customize if you need
 echo 'export MONIKER="My_Node"' >> ~/.bash_profile
@@ -170,7 +170,7 @@ PEERS="1248487ea585730cdf5d3c32e0c2a43ad0cda973@peer-zero-gravity-testnet.truste
 SEEDS="8c01665f88896bca44e8902a30e4278bed08033f@54.241.167.190:26656,b288e8b37f4b0dbd9a03e8ce926cd9c801aacf27@54.176.175.48:26656,8e20e8e88d504e67c7a3a58c2ea31d965aa2a890@54.193.250.204:26656,e50ac888b35175bfd4f999697bdeb5b7b52bfc06@54.215.187.94:26656" && \
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.evmosd/config/config.toml
 ```
-### 8. Set ports (Optional)
+### 8. Change ports (Optional)
 ```bash
 # Customize if you need
 EXTERNAL_IP=$(wget -qO- eth0.me) \
