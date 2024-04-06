@@ -251,7 +251,7 @@ echo "0x$(evmosd debug addr $(evmosd keys show $WALLET_NAME -a) | grep hex | awk
 ```
 Example outpu:
 
-[<img src='assets\hex_addr.PNG' alt='banner' width='40.9%'>]()
+[<img src='assets\hex_addr.PNG' alt='banner' width='80.9%'>]()
 
 ### 16. Request tokens from the faucet
 -> <a href="https://faucet.0g.ai/"><font size="4"><b><u>FAUCET</u></b></font></a> <-
@@ -261,7 +261,7 @@ evmosd q bank balances $(evmosd keys show $WALLET_NAME -a)
 ```
 Example outpu:
 
-[<img src='/assets/balance.PNG' alt='banner' width='40.9%'>]()
+[<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
 
 ### 17. Create a validator
 ```bash
