@@ -1,6 +1,6 @@
 [<img src='assets\guide-banner.png' alt='banner' width= '99.9%'>]()
 
-<font size = 7><center><b><u>About Zero Gravity (OG)</u></b></center></font>
+<font size = 7><center><b><u>About Zero Gravity (0G)</u></b></center></font>
 
 * ### **[Zero Gravity](https://0g.ai/)** is a pioneering data availability system featuring a decentralized storage layer designed for super scalability and security.
 
@@ -9,11 +9,11 @@
 * ### Its incentive-based storage mechanism fosters network participation, promoting scalability and enabling support for diverse data types across Layer 2 networks and decentralized AI platforms. network.
 
 <div align="center">
-  <a href="https://0g.ai/"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/85aaef48-7ea4-4857-b339-985645c6850c" alt="OG Website" width="16%"></a>
-  <a href="https://github.com/0glabs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/229ec400-72ff-48ee-ac18-7bdb1f5e221a" alt="OG Github" width="16%"></a>
-  <a href="https://twitter.com/0G_labs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/3978b7fc-d575-44a6-8d41-327c14c8ba31" alt="OG Twitter" width="16%"></a>
-  <a href="https://discord.gg/0glabs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/944a0b87-548d-4109-ad0c-def572d307cb" alt="OG Discord" width="16%"></a>
-  <a href="https://blog.0g.ai/"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/ac52729b-64d7-44d1-9a66-1e0d159848f6" alt="OG Blog" width="16.2%"></a>
+  <a href="https://0g.ai/"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/85aaef48-7ea4-4857-b339-985645c6850c" alt="0G Website" width="16%"></a>
+  <a href="https://github.com/0glabs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/229ec400-72ff-48ee-ac18-7bdb1f5e221a" alt="0G Github" width="16%"></a>
+  <a href="https://twitter.com/0G_labs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/3978b7fc-d575-44a6-8d41-327c14c8ba31" alt="0G Twitter" width="16%"></a>
+  <a href="https://discord.gg/0glabs"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/944a0b87-548d-4109-ad0c-def572d307cb" alt="0G Discord" width="16%"></a>
+  <a href="https://blog.0g.ai/"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/ac52729b-64d7-44d1-9a66-1e0d159848f6" alt="0G Blog" width="16.2%"></a>
 </div>
 
 <font size = 7><center><b><u>Navigation</u></b></center></font>
@@ -277,7 +277,7 @@ evmosd tx staking create-validator \
   --from=$WALLET_NAME \
   --identity="" \
   --website="" \
-  --details="OG to the moon!" \
+  --details="0G to the moon!" \
   --gas=500000 --gas-prices=99999aevmos \
   -y
 ```
