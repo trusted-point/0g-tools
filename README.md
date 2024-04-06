@@ -263,7 +263,7 @@ Example output:
 
 [<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
 
-### 17. Create a validator
+### 18. Create a validator
 ```bash
 evmosd tx staking create-validator \
   --amount=10000000000000000aevmos \
