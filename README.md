@@ -510,7 +510,7 @@ sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### Delete the node from the server
 ```bash
-# !!! IF YOU HAVE CREATED A VALIDATOR, MAKE SURE TO BACKUP Do not forget to save `priv_validator_key.json` file located in $HOME/.evmosd/config/ 
+# !!! IF YOU HAVE CREATED A VALIDATOR, MAKE SURE TO BACKUP `priv_validator_key.json` file located in $HOME/.evmosd/config/ 
 sudo systemctl stop ogd
 sudo systemctl disable ogd
 sudo rm /etc/systemd/system/ogd.service
