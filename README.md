@@ -263,6 +263,7 @@ Example output:
 
 [<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
 
+Note: The faucet gives you *100000000000000000aevmos*. To make the validator join the active set you need at least *1000000000000000000aevmos* (**10 times more**)
 ### 18. Create a validator
 ```bash
 evmosd tx staking create-validator \
