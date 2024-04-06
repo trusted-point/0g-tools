@@ -278,8 +278,7 @@ evmosd tx staking create-validator \
   --identity="" \
   --website="" \
   --details="OG to the moon!" \
-  --gas auto  \
-  --gas-adjustment 1.5 \
+  --gas=500000 --gas-prices=99999999834aevmos \
   -y
 ```
 Do not forget to save `priv_validator_key.json` file located in $HOME/.evmosd/config/
@@ -444,11 +443,11 @@ evmosd q slashing signing-info $(evmosd tendermint show-validator)
 ```
 ### Unjail your validator 
 ```bash
-evmosd tx slashing unjail --from $WALLET_NAME --gas auto --gas-adjustment 1.5 -y
+evmosd tx slashing unjail --from $WALLET_NAME --gas=500000 --gas-prices=99999999834aevmos -y
 ```
 ### Delegate tokens to your validator 
 ```bash 
-evmosd tx staking delegate $(evmosd keys show $WALLET_NAME --bech val -a)  <AMOUNT>aevmos --from $WALLET_NAME --gas auto --gas-adjustment 1.5 -y
+evmosd tx staking delegate $(evmosd keys show $WALLET_NAME --bech val -a)  <AMOUNT>aevmos --from $WALLET_NAME --gas=500000 --gas-prices=99999999834aevmos -y
 ```
 ### Get your p2p peer address
 ```bash
@@ -456,11 +455,11 @@ evmosd status | jq -r '"\(.NodeInfo.id)@\(.NodeInfo.listen_addr)"'
 ```
 ### Send tokens between wallets
 ```bash 
-evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --moniker="<NEW_MONIKER>" --from=$WALLET_NAME --gas auto --gas-adjustment 1.5 -y
+evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --moniker="<NEW_MONIKER>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999999834aevmos -y
 ```
 ### Send tokens between wallets 
 ```bash
-evmosd tx bank send $WALLET_NAME <TO_WALLET> <AMOUNT>aevmos --gas auto --gas-adjustment 1.5 -y
+evmosd tx bank send $WALLET_NAME <TO_WALLET> <AMOUNT>aevmos --gas=500000 --gas-prices=99999999834aevmos -y
 ```
 ### Query your wallet balance 
 ```bash
