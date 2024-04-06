@@ -17,9 +17,9 @@
 </div>
 
 <font size = 7><center><b><u>Navigation</u></b></center></font>
-- [Hardware requirements](#hardware-requirements)
-- [TrustedPoint Services](#trustedpoint-services)
-- [Installation guide](#installation-guide)
+- **[Hardware requirements](#hardware-requirements)**
+- **[TrustedPoint Services](#trustedpoint-services)**
+- **[Installation guide](#installation-guide)**
   - [1. Install required packages](#1-install-required-packages)
   - [2. Install Go](#2-install-go)
   - [3. Build `evmosd` binary](#3-build-evmosd-binary)
@@ -38,7 +38,7 @@
   - [16. Request tokens from the faucet](#16-request-tokens-from-the-faucet)
   - [17. Check wallet balance](#17-check-wallet-balance)
   - [17. Create a validator](#17-create-a-validator)
-- [State sync](#state-sync)
+- **[State sync](#state-sync)**
   - [1. Stop the node](#1-stop-the-node)
   - [2. Backup priv\_validator\_state.json](#2-backup-priv_validator_statejson)
   - [3. Reset DB](#3-reset-db)
@@ -47,11 +47,11 @@
   - [5. Start the node](#5-start-the-node)
   - [6. Check the synchronization status](#6-check-the-synchronization-status)
   - [7. Disable state sync](#7-disable-state-sync)
-- [Download fresh addrbook.json](#download-fresh-addrbookjson)
+- **[Download fresh addrbook.json](#download-fresh-addrbookjson)**
   - [1. Stop the node and use `wget` to download the file](#1-stop-the-node-and-use-wget-to-download-the-file)
   - [2. Restart the node](#2-restart-the-node)
   - [3. Check the synchronization status](#3-check-the-synchronization-status)
-- [Add fresh persistent peers](#add-fresh-persistent-peers)
+- **[Add fresh persistent peers](#add-fresh-persistent-peers)**
   - [1. Extract persistent\_peers from our endpoint](#1-extract-persistent_peers-from-our-endpoint)
   - [2. Restart the node](#2-restart-the-node-1)
   - [3. Check the synchronization status](#3-check-the-synchronization-status-1)
@@ -64,7 +64,7 @@
   - [6. Move priv\_validator\_state.json back](#6-move-priv_validator_statejson-back)
   - [7. Restart the node](#7-restart-the-node)
   - [8. Check the synchronization status](#8-check-the-synchronization-status)
-- [Useful commands](#useful-commands)
+- **[Useful commands](#useful-commands)**
   - [Check node status](#check-node-status)
   - [Query your validator](#query-your-validator)
   - [Query missed blocks counter \& jail details of your validator](#query-missed-blocks-counter--jail-details-of-your-validator)
