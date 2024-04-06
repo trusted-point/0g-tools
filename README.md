@@ -249,7 +249,7 @@ evmosd keys add $WALLET_NAME
 ```bash
 echo "0x$(evmosd debug addr $(evmosd keys show $WALLET_NAME -a) | grep hex | awk '{print $3}')"
 ```
-Example outpu:
+Example output:
 
 [<img src='assets\hex_addr.PNG' alt='banner' width='80.9%'>]()
 
@@ -259,7 +259,7 @@ Example outpu:
 ```bash
 evmosd q bank balances $(evmosd keys show $WALLET_NAME -a) 
 ```
-Example outpu:
+Example output:
 
 [<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
 
