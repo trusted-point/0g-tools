@@ -339,7 +339,7 @@ You should see the following logs. It may take up to 5 minutes for the snapshot 
 2:39PM INF Discovered new snapshot format=3 hash="%���\x16\x03�T0�v�f�C��5�<TlLb�5��l!�M" height=600000 module=statesync server=node
 2:42PM INF VerifyHeader hash=CFC07DAB03CEB02F53273F5BDB6A7C16E6E02535B8A88614800ABA9C705D4AF7 height=602001 module=light server=node
 ```
-After some time you should the the following logs. It make take 5 minutes for the node to catch up the rest of the blocks
+After some time you should see the following logs. It make take 5 minutes for the node to catch up the rest of the blocks
 ```py
 2:43PM INF indexed block events height=602265 module=txindex server=node
 2:43PM INF executed block height=602266 module=state num_invalid_txs=0 num_valid_txs=0 server=node
@@ -363,7 +363,6 @@ sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd
 ```bash
 sudo systemctl stop ogd && \
 wget -O $HOME/.evmosd/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json && \
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### 2. Restart the node
 ```bash
