@@ -454,7 +454,7 @@ evmosd tx staking delegate $(evmosd keys show $WALLET_NAME --bech val -a)  <AMOU
 ```bash
 evmosd status | jq -r '"\(.NodeInfo.id)@\(.NodeInfo.listen_addr)"'
 ```
-### Send tokens between wallets
+### Edit your validator
 ```bash 
 evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --moniker="<NEW_MONIKER>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
 ```
