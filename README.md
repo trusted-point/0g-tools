@@ -161,6 +161,7 @@ source $HOME/.bash_profile
 ```bash
 cd $HOME
 evmosd init $MONIKER --chain-id $CHAIN_ID
+evmosd config chain-id $CHAIN_ID
 evmosd config node tcp://localhost:$RPC_PORT
 evmosd config keyring-backend os # You can set it to "test" so you will not be asked for a password
 ```
