@@ -460,7 +460,7 @@ evmosd status | jq -r '"\(.NodeInfo.id)@\(.NodeInfo.listen_addr)"'
 ```
 ### Edit your validator
 ```bash 
-evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --moniker="<NEW_MONIKER>" --identity="<KEY BASE PREFIX>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
+evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --new-moniker="<NEW_MONIKER>" --identity="<KEY BASE PREFIX>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
 ```
 ### Send tokens between wallets 
 ```bash
