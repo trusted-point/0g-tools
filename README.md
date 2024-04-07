@@ -37,7 +37,7 @@
   - [15. Extract the HEX address to request some tokens from the faucet](#15-extract-the-hex-address-to-request-some-tokens-from-the-faucet)
   - [16. Request tokens from the faucet](#16-request-tokens-from-the-faucet)
   - [17. Check wallet balance](#17-check-wallet-balance)
-  - [17. Create a validator](#17-create-a-validator)
+  - [18. Create a validator](#18-create-a-validator)
 - **[State sync](#state-sync)**
   - [1. Stop the node](#1-stop-the-node)
   - [2. Backup priv\_validator\_state.json](#2-backup-priv_validator_statejson)
