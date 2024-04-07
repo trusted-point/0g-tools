@@ -16,18 +16,20 @@
   <a href="https://blog.0g.ai/"><img src="https://github.com/bartosian/celestia-tools/assets/20209819/ac52729b-64d7-44d1-9a66-1e0d159848f6" alt="0G Blog" width="16.2%"></a>
 </div>
 
-<font size = 7><center><b><u>Navigation</u></b></center></font>
-- **[Hardware requirements](#hardware-requirements)**
-- **[TrustedPoint Services](#trustedpoint-services)**
-- **[Installation guide](#installation-guide)**
+## Navigation
+
+- [Navigation](#navigation)
+- [Hardware requirements](#hardware-requirements)
+- [TrustedPoint Services](#trustedpoint-services)
+- [Installation guide](#installation-guide)
   - [1. Install required packages](#1-install-required-packages)
   - [2. Install Go](#2-install-go)
   - [3. Build `evmosd` binary](#3-build-evmosd-binary)
-  - [4. Setup variables](#4-setup-variables)
+  - [4. Set up variables](#4-set-up-variables)
   - [5. Intitialize the node](#5-intitialize-the-node)
   - [6. Download genesis.json](#6-download-genesisjson)
   - [7. Add seeds and peers to the config.toml](#7-add-seeds-and-peers-to-the-configtoml)
-  - [8. Set ports (Optional)](#8-set-ports-optional)
+  - [8. Change ports (Optional)](#8-change-ports-optional)
   - [9. Configure prunning to save storage (Optional)](#9-configure-prunning-to-save-storage-optional)
   - [10. Set min gas price](#10-set-min-gas-price)
   - [11. Enable indexer (Optional)](#11-enable-indexer-optional)
@@ -38,7 +40,7 @@
   - [16. Request tokens from the faucet](#16-request-tokens-from-the-faucet)
   - [17. Check wallet balance](#17-check-wallet-balance)
   - [18. Create a validator](#18-create-a-validator)
-- **[State sync](#state-sync)**
+- [State sync](#state-sync)
   - [1. Stop the node](#1-stop-the-node)
   - [2. Backup priv\_validator\_state.json](#2-backup-priv_validator_statejson)
   - [3. Reset DB](#3-reset-db)
@@ -47,15 +49,15 @@
   - [5. Start the node](#5-start-the-node)
   - [6. Check the synchronization status](#6-check-the-synchronization-status)
   - [7. Disable state sync](#7-disable-state-sync)
-- **[Download fresh addrbook.json](#download-fresh-addrbookjson)**
+- [Download fresh addrbook.json](#download-fresh-addrbookjson)
   - [1. Stop the node and use `wget` to download the file](#1-stop-the-node-and-use-wget-to-download-the-file)
   - [2. Restart the node](#2-restart-the-node)
   - [3. Check the synchronization status](#3-check-the-synchronization-status)
-- **[Add fresh persistent peers](#add-fresh-persistent-peers)**
+- [Add fresh persistent peers](#add-fresh-persistent-peers)
   - [1. Extract persistent\_peers from our endpoint](#1-extract-persistent_peers-from-our-endpoint)
   - [2. Restart the node](#2-restart-the-node-1)
   - [3. Check the synchronization status](#3-check-the-synchronization-status-1)
-- **[Download Snapshot](#download-snapshot)**
+- [Download Snapshot](#download-snapshot)
   - [1. Download latest snapshot from our endpoint](#1-download-latest-snapshot-from-our-endpoint)
   - [2. Stop the node](#2-stop-the-node)
   - [3. Backup priv\_validator\_state.json](#3-backup-priv_validator_statejson)
@@ -64,15 +66,15 @@
   - [6. Move priv\_validator\_state.json back](#6-move-priv_validator_statejson-back)
   - [7. Restart the node](#7-restart-the-node)
   - [8. Check the synchronization status](#8-check-the-synchronization-status)
-- **[Useful commands](#useful-commands)**
+- [Useful commands](#useful-commands)
   - [Check node status](#check-node-status)
   - [Query your validator](#query-your-validator)
   - [Query missed blocks counter \& jail details of your validator](#query-missed-blocks-counter--jail-details-of-your-validator)
   - [Unjail your validator](#unjail-your-validator)
   - [Delegate tokens to your validator](#delegate-tokens-to-your-validator)
   - [Get your p2p peer address](#get-your-p2p-peer-address)
+  - [Edit your validator](#edit-your-validator)
   - [Send tokens between wallets](#send-tokens-between-wallets)
-  - [Send tokens between wallets](#send-tokens-between-wallets-1)
   - [Query your wallet balance](#query-your-wallet-balance)
   - [Monitor server load](#monitor-server-load)
   - [Query active validators](#query-active-validators)
@@ -84,6 +86,9 @@
   - [Delete the node from the server](#delete-the-node-from-the-server)
   - [Example gRPC usage](#example-grpc-usage)
   - [Example REST API query](#example-rest-api-query)
+- [Monitoring](#monitoring)
+
+
 
 ## Hardware requirements
 ```py
@@ -531,3 +536,13 @@ curl localhost:$API_PORT/cosmos/staking/v1beta1/validators
 ### MAKE SURE API is enabled in app.toml
 # grep -A 3 "\[api\]" /home/og-testnet-validator/.evmosd/config/app.toml
 ```
+
+___
+
+## Monitoring
+
+To enhance the observability and monitoring of your nodes and network status, you are encouraged to utilize our [public dashboard](http://dashboard-0g.trusted-point.com/). This platform offers real-time insights and analytics, enabling you to track performance, identify potential issues, and make informed decisions for optimal network health.
+
+
+<a href="http://dashboard-0g.trusted-point.com/"><img src="https://github.com/trusted-point/0g-tools/assets/20209819/0f332318-2c4c-4f07-80e8-9267ac73b830" alt="0G Dashboard" width="100%"></a>
+</div>
