@@ -362,7 +362,7 @@ sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd
 ### 1. Stop the node and use `wget` to download the file
 ```bash
 sudo systemctl stop ogd && \
-wget -O $HOME/.evmosd/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json && \
+wget -O $HOME/.evmosd/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json
 ```
 ### 2. Restart the node
 ```bash
