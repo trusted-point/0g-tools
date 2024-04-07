@@ -468,7 +468,7 @@ evmosd tx bank send $WALLET_NAME <TO_WALLET> <AMOUNT>aevmos --gas=500000 --gas-p
 ```
 ### Query your wallet balance 
 ```bash
-evmosd q bank balances $WALLET_NAME
+evmosd q bank balances $(evmosd keys show $WALLET_NAME -a)
 ```
 ### Monitor server load
 ```bash 
