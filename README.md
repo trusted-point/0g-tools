@@ -157,11 +157,10 @@ echo 'export WALLET_NAME="wallet"' >> ~/.bash_profile
 echo 'export RPC_PORT="26657"' >> ~/.bash_profile
 source $HOME/.bash_profile
 ```
-### 5. Intitialize the node
+### 5. Initialize the node
 ```bash
 cd $HOME
 evmosd init $MONIKER --chain-id $CHAIN_ID
-evmosd config chain-id $CHAIN_ID
 evmosd config node tcp://localhost:$RPC_PORT
 evmosd config keyring-backend os # You can set it to "test" so you will not be asked for a password
 ```
