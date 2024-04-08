@@ -319,11 +319,11 @@ else
     echo -e "\nError: One or more variables are empty. Please try again or change RPC\nExiting...\n"
 fi
 ```
-### 4. Move priv_validator_state.json back
+### 5. Move priv_validator_state.json back
 ```bash
 mv $HOME/.evmosd/priv_validator_state.json.backup $HOME/.evmosd/data/priv_validator_state.json
 ```
-### 5. Start the node
+### 6. Start the node
 ```bash
 sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
@@ -344,11 +344,11 @@ After some time you should the the following logs. It make take 5 minutes for th
 2:43PM INF executed block height=602267 module=state num_invalid_txs=0 num_valid_txs=0 server=node
 2:43PM INF commit synced commit=436F6D6D697449447B5B323437203134322032342031313620323038203631203138362032333920323238203138312032333920313039203336203420383720323238203236203738203637203133302032323220313431203438203337203235203133302037302032343020313631203233372031312036365D3A39333039427D module=server
 ```
-### 6. Check the synchronization status
+### 7. Check the synchronization status
 ```bash
 evmosd status | jq .SyncInfo
 ```
-### 7. Disable state sync
+### 8. Disable state sync
 ```bash
 sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd/config/app.toml
 ```
