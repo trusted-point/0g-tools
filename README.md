@@ -115,6 +115,7 @@
 - WSS: wss://rpc-zero-gravity-testnet.trusted-point.com:443/websocket
 - gRPC: http://grpc-zero-gravity-testnet:9295
 - P2P Persistent Peer: 1248487ea585730cdf5d3c32e0c2a43ad0cda973@peer-zero-gravity-testnet.trusted-point.com:26326
+- EVM RPC: https://evm-rpc-zero-gravity-testnet.trusted-point.com:443
 ---
 - State sync: [Guide](#state-sync)
 - Fresh Snapshot: [URL](https://rpc-zero-gravity-testnet.trusted-point.com/latest_snapshot.tar.lz4) / [Guide](#download-snapshot) **(Being updated every 3 hours)**
