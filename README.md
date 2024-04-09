@@ -262,6 +262,11 @@ Example output:
 ### 16. Request tokens from the faucet
 -> <a href="https://faucet.0g.ai/"><font size="4"><b><u>FAUCET</u></b></font></a> <-
 ### 17. Check wallet balance
+Make sure your node is fully synced unless it won't work.
+```bash
+evmosd status | jq .SyncInfo.catching_up
+```
+If your node is in sync, then proceed with the following command:
 ```bash
 evmosd q bank balances $(evmosd keys show $WALLET_NAME -a) 
 ```
@@ -271,11 +276,6 @@ Example output:
 
 Note: The faucet gives you *100000000000000000aevmos*. To make the validator join the active set you need at least *1000000000000000000aevmos* (**10 times more**)
 ### 18. Create a validator
-Make sure your node is fully synced unless it won't work.
-```bash
-evmosd status | jq .SyncInfo.catching_up
-```
-If your node is in sync, then proceed with the following command:
 ```bash
 evmosd tx staking create-validator \
   --amount=10000000000000000aevmos \
