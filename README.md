@@ -361,7 +361,7 @@ evmosd status | jq .SyncInfo
 ```
 ### 7. Disable state sync
 ```bash
-sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd/config/app.toml
+sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd/config/config.toml
 ```
 ## Download fresh addrbook.json
 
