@@ -98,8 +98,8 @@ sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```
 ### 5. Set up variables
 ```bash
-echo 'export CONFIG_FILE="$HOME/0g-storage-node/run/config.toml"' >> ~/.bash_profile
-echo 'export MINER_LOG_DIR="$HOME/0g-storage-node/run/log"' >> ~/.bash_profile
+echo 'export ZGS_CONFIG_FILE="$HOME/0g-storage-node/run/config.toml"' >> ~/.bash_profile
+echo 'export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log"' >> ~/.bash_profile
 
 source ~/.bash_profile
 ```
@@ -112,7 +112,7 @@ To obtain a wallet private key, you have two options:
 
 After creating the wallet, you can use the following command to export the private key:
 ```bash
-evmosd keys unsafe-export-eth-key $MINER_WALLET_NAME
+evmosd keys unsafe-export-eth-key $WALLET_NAME
 ```
 Store your private key in variable:
 ```bash
@@ -120,13 +120,13 @@ read -sp "Enter your private key: " PRIVATE_KEY && echo
 ```
 ### 7. Update miner configuration
 ```bash
-if grep -q '# miner_id' $CONFIG_FILE; then
+if grep -q '# miner_id' $ZGS_CONFIG_FILE; then
     MINER_ID=$(openssl rand -hex 32)
-    sed -i "/# miner_id/c\miner_id = \"$MINER_ID\"" $CONFIG_FILE
+    sed -i "/# miner_id/c\miner_id = \"$MINER_ID\"" $ZGS_CONFIG_FILE
 fi
 
-if grep -q '# miner_key' $CONFIG_FILE; then
-    sed -i "/# miner_key/c\miner_key = \"$PRIVATE_KEY\"" $CONFIG_FILE
+if grep -q '# miner_key' $ZGS_CONFIG_FILE; then
+    sed -i "/# miner_key/c\miner_key = \"$PRIVATE_KEY\"" $ZGS_CONFIG_FILE
 fi
 ```
 ### 8. Create a service file
@@ -139,7 +139,7 @@ After=network.target
 [Service]
 User=$USER
 Type=simple
-ExecStart=zgs_node --config $CONFIG_FILE
+ExecStart=zgs_node --config $ZGS_CONFIG_FILE
 Restart=on-failure
 LimitNOFILE=65535
 
@@ -166,8 +166,8 @@ sudo systemctl stop zgs
 ### Delete the node from the server
 Before deleting the node, you might want to save your `miner_id` and `miner_key` from the configuration file. Use the following commands to print these values:
 ```bash
-grep 'miner_id' $CONFIG_FILE
-grep 'miner_key' $CONFIG_FILE
+grep 'miner_id' $ZGS_CONFIG_FILE
+grep 'miner_key' $ZGS_CONFIG_FILE
 ```
 ```bash
 sudo systemctl stop zgs
@@ -186,21 +186,21 @@ sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```
 ### View the latest log file
 ```bash
-tail -n 100 $(ls -Art $MINER_LOG_DIR | tail -n 1)
+tail -n 100 $(ls -Art $ZGS_LOG_DIR | tail -n 1)
 ```
 ### Tail logs in real time
 ```bash
-tail -f $(ls -Art $MINER_LOG_DIR | tail -n 1)
+tail -f $(ls -Art $ZGS_LOG_DIR | tail -n 1)
 ```
 ### Search for errors
 ```bash
-grep "Error" $MINER_LOG_DIR/zgs.log.*
+grep "Error" $ZGS_LOG_DIR/zgs.log.*
 ```
 ### List logs by date
 ```bash
-ls -lt $MINER_LOG_DIR
+ls -lt $ZGS_LOG_DIR
 ```
 ### View specific date logs
 ```bash
-cat $MINER_LOG_DIR/zgs.log.2024-04-15
+cat $ZGS_LOG_DIR/zgs.log.2024-04-15
 ```
