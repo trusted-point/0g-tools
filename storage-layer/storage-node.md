@@ -45,6 +45,7 @@ Moving beyond a traditional decentralized database, 0G Storage incorporates the 
   - [Restart the node](#restart-the-node)
   - [Stop the node](#stop-the-node)
   - [Delete the node from the server](#delete-the-node-from-the-server)
+  - [Upgrade the node](#upgrade-the-node)
   - [View the latest log file](#view-the-latest-log-file)
   - [Tail logs in real time](#tail-logs-in-real-time)
   - [Search for errors](#search-for-errors)
@@ -90,6 +91,7 @@ go version
 cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
+git checkout v1.0.0-testnet
 git submodule update --init
 cargo build --release
 sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
@@ -172,6 +174,15 @@ sudo systemctl stop zgs
 sudo systemctl disable zgs
 sudo rm /etc/systemd/system/zgs.service
 rm -rf $HOME/0g-storage-node
+```
+### Upgrade the node
+```bash
+cd $HOME/0g-storage-node
+git fetch
+git checkout tags/<version>
+git submodule update --init
+cargo build --release
+sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```
 ### View the latest log file
 ```bash
