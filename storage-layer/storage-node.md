@@ -33,7 +33,7 @@ Moving beyond a traditional decentralized database, 0G Storage incorporates the 
 - [Hardware requirements](#hardware-requirements)
 - [Installation guide](#installation-guide)
   - [1. Install required packages](#1-install-required-packages)
-  - [1. Install rustup](#1-install-rustup)
+  - [2. Install rustup](#2-install-rustup)
   - [3. Install Go](#3-install-go)
   - [4. Build `zgs_node` binary](#4-build-zgs_node-binary)
   - [5. Set up variables](#5-set-up-variables)
@@ -69,7 +69,7 @@ Moving beyond a traditional decentralized database, 0G Storage incorporates the 
 sudo apt update && \
 sudo apt install curl git jq build-essential gcc unzip wget lz4 openssl -y
 ```
-### 1. Install rustup
+### 2. Install rustup
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
