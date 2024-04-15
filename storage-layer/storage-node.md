@@ -151,7 +151,8 @@ EOF
 ```bash
 sudo systemctl daemon-reload && \
 sudo systemctl enable zgs && \
-sudo systemctl restart zgs
+sudo systemctl restart zgs && \
+sudo systemctl status zgs
 ```
 ## Useful commands
 ### Restart the node
