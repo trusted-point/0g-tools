@@ -1,7 +1,5 @@
 <img src='../assets/storage-node-guide-banner.png' alt='banner' width= '99.9%'>
 
-<font size = 7><center><b>Storage Node</b></center></font>
-
 ## Overview
 0G Storage serves as the foundational storage layer for the ZeroGravity data availability (DA) system. This layer is integral to the system's architecture, offering robust data storage and retrieval mechanisms inherently built into ZeroGravity.
 
