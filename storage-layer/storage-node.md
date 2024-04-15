@@ -33,13 +33,14 @@ Moving beyond a traditional decentralized database, 0G Storage incorporates the 
 - [Hardware requirements](#hardware-requirements)
 - [Installation guide](#installation-guide)
   - [1. Install required packages](#1-install-required-packages)
-  - [2. Install Go](#2-install-go)
-  - [3. Build `zgs_node` binary](#3-build-zgs_node-binary)
-  - [4. Set up variables](#4-set-up-variables)
-  - [5. Get wallet private key](#5-get-wallet-private-key)
-  - [6. Update miner configuration](#6-update-miner-configuration)
-  - [7. Create a service file](#7-create-a-service-file)
-  - [8. Start the node](#8-start-the-node)
+  - [1. Install rustup](#1-install-rustup)
+  - [3. Install Go](#3-install-go)
+  - [4. Build `zgs_node` binary](#4-build-zgs_node-binary)
+  - [5. Set up variables](#5-set-up-variables)
+  - [6. Get wallet private key](#6-get-wallet-private-key)
+  - [7. Update miner configuration](#7-update-miner-configuration)
+  - [8. Create a service file](#8-create-a-service-file)
+  - [9. Start the node](#9-start-the-node)
 - [Useful commands](#useful-commands)
   - [Restart the node](#restart-the-node)
   - [Stop the node](#stop-the-node)
@@ -68,7 +69,11 @@ Moving beyond a traditional decentralized database, 0G Storage incorporates the 
 sudo apt update && \
 sudo apt install curl git jq build-essential gcc unzip wget lz4 openssl -y
 ```
-### 2. Install Go
+### 1. Install rustup
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+### 3. Install Go
 ```bash
 cd $HOME && \
 ver="1.21.3" && \
@@ -80,7 +85,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile && \
 source ~/.bash_profile && \
 go version
 ```
-### 3. Build `zgs_node` binary
+### 4. Build `zgs_node` binary
 ```bash
 cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
@@ -89,14 +94,14 @@ git submodule update --init
 cargo build --release
 sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```
-### 4. Set up variables
+### 5. Set up variables
 ```bash
 echo 'export CONFIG_FILE="$HOME/0g-storage-node/run/config.toml"' >> ~/.bash_profile
 echo 'export MINER_LOG_DIR="$HOME/0g-storage-node/run/log"' >> ~/.bash_profile
 
 source ~/.bash_profile
 ```
-### 5. Get wallet private key
+### 6. Get wallet private key
 To obtain a wallet private key, you have two options:
 
 `From MetaMask:` If you already have a wallet configured in MetaMask, you can use the private key associated with the MetaMask account.
@@ -111,7 +116,7 @@ Store your private key in variable:
 ```bash
 read -sp "Enter your private key: " PRIVATE_KEY && echo
 ```
-### 6. Update miner configuration
+### 7. Update miner configuration
 ```bash
 if grep -q '# miner_id' $CONFIG_FILE; then
     MINER_ID=$(openssl rand -hex 32)
@@ -122,7 +127,7 @@ if grep -q '# miner_key' $CONFIG_FILE; then
     sed -i "/# miner_key/c\miner_key = \"$PRIVATE_KEY\"" $CONFIG_FILE
 fi
 ```
-### 7. Create a service file
+### 8. Create a service file
 ```bash
 sudo tee /etc/systemd/system/zgs.service > /dev/null <<EOF
 [Unit]
@@ -140,7 +145,7 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
-### 8. Start the node
+### 9. Start the node
 ```bash
 sudo systemctl daemon-reload && \
 sudo systemctl enable zgs && \
