@@ -1,4 +1,4 @@
-[<img src='assets\guide-banner.png' alt='banner' width= '99.9%'>]()
+[<img src='assets\consensus-node-guide-banner.png' alt='banner' width= '99.9%'>]()
 
 <font size = 7><center><b><u>About Zero Gravity (0G)</u></b></center></font>
 
@@ -26,7 +26,7 @@
   - [2. Install Go](#2-install-go)
   - [3. Build `evmosd` binary](#3-build-evmosd-binary)
   - [4. Set up variables](#4-set-up-variables)
-  - [5. Intitialize the node](#5-intitialize-the-node)
+  - [5. Initialize the node](#5-initialize-the-node)
   - [6. Download genesis.json](#6-download-genesisjson)
   - [7. Add seeds and peers to the config.toml](#7-add-seeds-and-peers-to-the-configtoml)
   - [8. Change ports (Optional)](#8-change-ports-optional)
