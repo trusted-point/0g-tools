@@ -92,7 +92,6 @@ sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ### 4. Set up variables
 ```bash
 echo 'export CONFIG_FILE="$HOME/0g-storage-node/run/config.toml"' >> ~/.bash_profile
-echo 'export MINER_WALLET_NAME="miner_wallet"' >> ~/.bash_profile
 echo 'export MINER_LOG_DIR="$HOME/0g-storage-node/run/log"' >> ~/.bash_profile
 
 source ~/.bash_profile
