@@ -1,4 +1,4 @@
-<img src='https://github.com/trusted-point/0g-tools/assets/20209819/3074fe24-e10f-4001-8873-96b114e4362f' alt='banner' width= '99.9%'>
+<img src='../assets/storage-node-guide-banner.png' alt='banner' width= '99.9%'>
 
 <font size = 7><center><b>Storage Node</b></center></font>
 
