@@ -189,11 +189,7 @@ sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```
 ### View the latest log file
 ```bash
-tail -n 100 $(ls -Art $ZGS_LOG_DIR | tail -n 1)
-```
-### Tail logs in real time
-```bash
-tail -f $(ls -Art $ZGS_LOG_DIR | tail -n 1)
+tail -n 100 "$ZGS_LOG_DIR/$(ls -Art $ZGS_LOG_DIR | tail -n 1)"
 ```
 ### Search for errors
 ```bash
