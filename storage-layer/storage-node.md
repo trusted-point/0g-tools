@@ -100,6 +100,7 @@ sudo mv $HOME/0g-storage-node/target/release/zgs_node /usr/local/bin
 ```bash
 echo 'export ZGS_CONFIG_FILE="$HOME/0g-storage-node/run/config.toml"' >> ~/.bash_profile
 echo 'export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log"' >> ~/.bash_profile
+echo 'export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config"' >> ~/.bash_profile
 
 source ~/.bash_profile
 ```
@@ -118,7 +119,7 @@ Store your private key in variable:
 ```bash
 read -sp "Enter your private key: " PRIVATE_KEY && echo
 ```
-### 7. Update miner configuration
+### 7. Update node configuration
 ```bash
 if grep -q '# miner_id' $ZGS_CONFIG_FILE; then
     MINER_ID=$(openssl rand -hex 32)
@@ -128,6 +129,8 @@ fi
 if grep -q '# miner_key' $ZGS_CONFIG_FILE; then
     sed -i "/# miner_key/c\miner_key = \"$PRIVATE_KEY\"" $ZGS_CONFIG_FILE
 fi
+
+sed -i "s|^log_config_file =.*$|log_config_file = \"$ZGS_LOG_CONFIG_FILE\"|" $ZGS_CONFIG_FILE
 ```
 ### 8. Create a service file
 ```bash
