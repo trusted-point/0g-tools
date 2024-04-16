@@ -130,6 +130,12 @@ if grep -q '# miner_key' $ZGS_CONFIG_FILE; then
 fi
 
 sed -i "s|^log_config_file =.*$|log_config_file = \"$ZGS_LOG_CONFIG_FILE\"|" $ZGS_CONFIG_FILE
+
+sed -i "s|^log_directory =.*$|log_config_file = \"$ZGS_LOG_CONFIG_FILE\"|" $ZGS_CONFIG_FILE
+
+if ! grep -q "^log_directory =" "$ZGS_CONFIG_FILE"; then
+    echo "log_directory = \"$ZGS_LOG_DIR\"" >> "$ZGS_CONFIG_FILE"
+fi
 ```
 ### 8. Create a service file
 ```bash
