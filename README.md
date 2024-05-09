@@ -253,10 +253,6 @@ P.S. Consider [downloading snapshot](#download-snapshot) or using [state-sync](#
 ```bash
 echo "0x$(0gchaind debug addr $(0gchaind keys show $WALLET_NAME -a) | grep hex | awk '{print $3}')"
 ```
-Example output:
-
-[<img src='assets\hex_addr.PNG' alt='banner' width='80.9%'>]()
-
 ### 16. Request tokens from the faucet
 -> <a href="https://faucet.0g.ai/"><font size="4"><b><u>FAUCET</u></b></font></a> <-
 ### 17. Check wallet balance
@@ -268,9 +264,6 @@ If your node is in sync, then proceed with the following command:
 ```bash
 0gchaind q bank balances $(0gchaind keys show $WALLET_NAME -a) 
 ```
-Example output:
-
-[<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
 ### 18. Create a validator
 ```bash
 0gchaind tx staking create-validator \
