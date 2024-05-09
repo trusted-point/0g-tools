@@ -24,13 +24,13 @@
 - [Installation guide](#installation-guide)
   - [1. Install required packages](#1-install-required-packages)
   - [2. Install Go](#2-install-go)
-  - [3. Build `evmosd` binary](#3-build-evmosd-binary)
+  - [3. Build `0gchaind` binary](#3-build-0gchaind-binary)
   - [4. Set up variables](#4-set-up-variables)
   - [5. Initialize the node](#5-initialize-the-node)
   - [6. Download genesis.json](#6-download-genesisjson)
   - [7. Add seeds and peers to the config.toml](#7-add-seeds-and-peers-to-the-configtoml)
   - [8. Change ports (Optional)](#8-change-ports-optional)
-  - [9. Configure prunning to save storage (Optional)](#9-configure-prunning-to-save-storage-optional)
+  - [9. Configure pruning to save storage (Optional)](#9-configure-pruning-to-save-storage-optional)
   - [10. Set min gas price](#10-set-min-gas-price)
   - [11. Enable indexer (Optional)](#11-enable-indexer-optional)
   - [12. Create a service file](#12-create-a-service-file)
@@ -92,9 +92,9 @@
 
 ## Hardware requirements
 ```py
-- Memory: 8 GB RAM
-- CPU: 4 cores
-- Disk: 500 GB NVME SSD
+- Memory: 64 GB RAM
+- CPU: 8 cores
+- Disk: 1 TB NVME SSD
 - Bandwidth: 100mbps Gbps for Download / Upload
 - Linux amd64 arm64 (The guide was tested on Ubuntu 20.04 LTS)
 ```
@@ -107,7 +107,7 @@
 | min-retain-blocks | 0
 | snapshot-interval | 2000
 | snapshot-keep-recent | 2
-| minimum-gas-prices | 0.00252aevmos
+| minimum-gas-prices | 0.00252ua0gi
 
 ---
 - RPC: https://rpc-zero-gravity-testnet.trusted-point.com:443
@@ -141,19 +141,18 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile && \
 source ~/.bash_profile && \
 go version
 ```
-### 3. Build `evmosd` binary
+### 3. Build `0gchaind` binary
 ```bash
-git clone https://github.com/0glabs/0g-evmos.git
-cd 0g-evmos
-git checkout v1.0.0-testnet
-make install
-evmosd version
+git clone -b v0.1.0 https://github.com/0glabs/0g-chain.git
+./0g-chain/networks/testnet/install.sh
+source .profile
+0gchaind version
 ```
 ### 4. Set up variables
 ```bash
 # Customize if you need
 echo 'export MONIKER="My_Node"' >> ~/.bash_profile
-echo 'export CHAIN_ID="zgtendermint_9000-1"' >> ~/.bash_profile
+echo 'export CHAIN_ID="zgtendermint_16600-1"' >> ~/.bash_profile
 echo 'export WALLET_NAME="wallet"' >> ~/.bash_profile
 echo 'export RPC_PORT="26657"' >> ~/.bash_profile
 source $HOME/.bash_profile
@@ -161,20 +160,19 @@ source $HOME/.bash_profile
 ### 5. Initialize the node
 ```bash
 cd $HOME
-evmosd init $MONIKER --chain-id $CHAIN_ID
-evmosd config chain-id $CHAIN_ID
-evmosd config node tcp://localhost:$RPC_PORT
-evmosd config keyring-backend os # You can set it to "test" so you will not be asked for a password
+0gchaind init $MONIKER --chain-id $CHAIN_ID
+0gchaind config chain-id $CHAIN_ID
+0gchaind config node tcp://localhost:$RPC_PORT
+0gchaind config keyring-backend os # You can set it to "test" so you will not be asked for a password
 ```
 ### 6. Download genesis.json
 ```bash
-wget https://github.com/0glabs/0g-evmos/releases/download/v1.0.0-testnet/genesis.json -O $HOME/.evmosd/config/genesis.json
+wget https://github.com/0glabs/0g-chain/releases/download/v0.1.0/genesis.json -O $HOME/.0gchain/config/genesis.json
 ```
 ### 7. Add seeds and peers to the config.toml
 ```bash
-PEERS="1248487ea585730cdf5d3c32e0c2a43ad0cda973@peer-zero-gravity-testnet.trusted-point.com:26326" && \
-SEEDS="8c01665f88896bca44e8902a30e4278bed08033f@54.241.167.190:26656,b288e8b37f4b0dbd9a03e8ce926cd9c801aacf27@54.176.175.48:26656,8e20e8e88d504e67c7a3a58c2ea31d965aa2a890@54.193.250.204:26656,e50ac888b35175bfd4f999697bdeb5b7b52bfc06@54.215.187.94:26656" && \
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.evmosd/config/config.toml
+SEEDS="c4d619f6088cb0b24b4ab43a0510bf9251ab5d7f@54.241.167.190:26656,44d11d4ba92a01b520923f51632d2450984d5886@54.176.175.48:26656,f2693dd86766b5bf8fd6ab87e2e970d564d20aff@54.193.250.204:26656,f878d40c538c8c23653a5b70f615f8dccec6fb9f@54.215.187.94:26656" && \
+sed -i.bak -e "s/^seeds *=.*/seeds = \"${SEEDS}\"/" $HOME/.0gchain/config/config.toml
 ```
 ### 8. Change ports (Optional)
 ```bash
@@ -194,28 +192,28 @@ sed -i \
     -e "s/\(pprof_laddr = \"\)\([^:]*\):\([0-9]*\).*/\1localhost:$PPROF_PORT\"/" \
     -e "/\[p2p\]/,/^\[/{s/\(laddr = \"tcp:\/\/\)\([^:]*\):\([0-9]*\).*/\1\2:$P2P_PORT\"/}" \
     -e "/\[p2p\]/,/^\[/{s/\(external_address = \"\)\([^:]*\):\([0-9]*\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/; t; s/\(external_address = \"\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/}" \
-    $HOME/.evmosd/config/config.toml
+    $HOME/.0gchain/config/config.toml
 ```
 ```bash
 sed -i \
     -e "/\[api\]/,/^\[/{s/\(address = \"tcp:\/\/\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$API_PORT\4/}" \
     -e "/\[grpc\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_PORT\4/}" \
-    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.evmosd/config/app.toml
+    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.0gchain/config/app.toml
 ```
-### 9. Configure prunning to save storage (Optional)
+### 9. Configure pruning to save storage (Optional)
 ```bash
-sed -i.bak -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.evmosd/config/app.toml
-sed -i.bak -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.evmosd/config/app.toml
-sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"10\"/" $HOME/.evmosd/config/app.toml
+sed -i.bak -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.0gchain/config/app.toml
+sed -i.bak -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.0gchain/config/app.toml
+sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"10\"/" $HOME/.0gchain/config/app.toml
 ```
 
 ### 10. Set min gas price 
 ```bash
-sed -i "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00252aevmos\"/" $HOME/.evmosd/config/app.toml
+sed -i "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0ua0gi\"/" $HOME/.0gchain/config/app.toml
 ```
 ### 11. Enable indexer (Optional)
 ```bash
-sed -i "s/^indexer *=.*/indexer = \"kv\"/" $HOME/.evmosd/config/config.toml
+sed -i "s/^indexer *=.*/indexer = \"kv\"/" $HOME/.0gchain/config/config.toml
 ```
 ### 12. Create a service file
 ```bash
@@ -227,7 +225,7 @@ After=network.target
 [Service]
 User=$USER
 Type=simple
-ExecStart=$(which evmosd) start --home $HOME/.evmosd
+ExecStart=$(which 0gchaind) start --home $HOME/.0gchain
 Restart=on-failure
 LimitNOFILE=65535
 
@@ -246,14 +244,14 @@ P.S. Consider [downloading snapshot](#download-snapshot) or using [state-sync](#
 
 ### 14. Create a wallet for your validator
 ```bash
-evmosd keys add $WALLET_NAME
+0gchaind keys add $WALLET_NAME
 
 # DO NOT FORGET TO SAVE THE SEED PHRASE
 # You can add --recover flag to restore existing key instead of creating
 ```
 ### 15. Extract the HEX address to request some tokens from the faucet
 ```bash
-echo "0x$(evmosd debug addr $(evmosd keys show $WALLET_NAME -a) | grep hex | awk '{print $3}')"
+echo "0x$(0gchaind debug addr $(0gchaind keys show $WALLET_NAME -a) | grep hex | awk '{print $3}')"
 ```
 Example output:
 
@@ -264,22 +262,20 @@ Example output:
 ### 17. Check wallet balance
 Make sure your node is fully synced unless it won't work.
 ```bash
-evmosd status | jq .SyncInfo.catching_up
+0gchaind status | jq .SyncInfo.catching_up
 ```
 If your node is in sync, then proceed with the following command:
 ```bash
-evmosd q bank balances $(evmosd keys show $WALLET_NAME -a) 
+0gchaind q bank balances $(0gchaind keys show $WALLET_NAME -a) 
 ```
 Example output:
 
 [<img src='/assets/balance.PNG' alt='banner' width='80.9%'>]()
-
-Note: The faucet gives you *100000000000000000aevmos*. To make the validator join the active set you need at least *1000000000000000000aevmos* (**10 times more**)
 ### 18. Create a validator
 ```bash
-evmosd tx staking create-validator \
-  --amount=10000000000000000aevmos \
-  --pubkey=$(evmosd tendermint show-validator) \
+0gchaind tx staking create-validator \
+  --amount=1000000ua0gi \
+  --pubkey=$(0gchaind tendermint show-validator) \
   --moniker=$MONIKER \
   --chain-id=$CHAIN_ID \
   --commission-rate=0.05 \
@@ -290,10 +286,10 @@ evmosd tx staking create-validator \
   --identity="" \
   --website="" \
   --details="0G to the moon!" \
-  --gas=500000 --gas-prices=99999aevmos \
+  --gas=500000 --gas-prices=99999ua0gi \
   -y
 ```
-Do not forget to save `priv_validator_key.json` file located in $HOME/.evmosd/config/
+Do not forget to save `priv_validator_key.json` file located in $HOME/.0gchain/config/
 
 ## State sync
 
@@ -303,11 +299,11 @@ sudo systemctl stop ogd
 ```
 ### 2. Backup priv_validator_state.json 
 ```bash
-cp $HOME/.evmosd/data/priv_validator_state.json $HOME/.evmosd/priv_validator_state.json.backup
+cp $HOME/.0gchain/data/priv_validator_state.json $HOME/.0gchain/priv_validator_state.json.backup
 ```
 ### 3. Reset DB
 ```bash
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
+0gchaind tendermint unsafe-reset-all --home $HOME/.0gchain --keep-addr-book
 ```
 ### 4. Setup required variables (One command)
 ```bash
@@ -324,7 +320,7 @@ if [ -n "$PEERS" ] && [ -n "$RPC" ] && [ -n "$LATEST_HEIGHT" ] && [ -n "$TRUST_H
         -e "/^trust_height =/ s/=.*/= $TRUST_HEIGHT/;" \
         -e "/^trust_hash =/ s/=.*/= \"$TRUST_HASH\"/" \
         -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" \
-        $HOME/.evmosd/config/config.toml
+        $HOME/.0gchain/config/config.toml
     echo -e "\nLATEST_HEIGHT: $LATEST_HEIGHT\nTRUST_HEIGHT: $TRUST_HEIGHT\nTRUST_HASH: $TRUST_HASH\nPEERS: $PEERS\n\nALL IS FINE"
 else
     echo -e "\nError: One or more variables are empty. Please try again or change RPC\nExiting...\n"
@@ -332,7 +328,7 @@ fi
 ```
 ### 4. Move priv_validator_state.json back
 ```bash
-mv $HOME/.evmosd/priv_validator_state.json.backup $HOME/.evmosd/data/priv_validator_state.json
+mv $HOME/.0gchain/priv_validator_state.json.backup $HOME/.0gchain/data/priv_validator_state.json
 ```
 ### 5. Start the node
 ```bash
@@ -357,18 +353,18 @@ After some time you should see the following logs. It make take 5 minutes for th
 ```
 ### 6. Check the synchronization status
 ```bash
-evmosd status | jq .SyncInfo
+0gchaind status | jq .SyncInfo
 ```
 ### 7. Disable state sync
 ```bash
-sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.evmosd/config/config.toml
+sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.0gchain/config/config.toml
 ```
 ## Download fresh addrbook.json
 
 ### 1. Stop the node and use `wget` to download the file
 ```bash
 sudo systemctl stop ogd && \
-wget -O $HOME/.evmosd/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json
+wget -O $HOME/.0gchain/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json
 ```
 ### 2. Restart the node
 ```bash
@@ -376,7 +372,7 @@ sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### 3. Check the synchronization status
 ```bash
-evmosd status | jq .SyncInfo
+0gchaind status | jq .SyncInfo
 ```
 The file is being updated every 5 minutes
 
@@ -389,7 +385,7 @@ if [ -z "$PEERS" ]; then
     echo "No peers were retrieved from the URL."
 else
     echo -e "\nPEERS: "$PEERS""
-    sed -i "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" "$HOME/.evmosd/config/config.toml"
+    sed -i "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" "$HOME/.0gchain/config/config.toml"
     echo -e "\nConfiguration file updated successfully.\n"
 fi
 ```
@@ -399,7 +395,7 @@ sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### 3. Check the synchronization status
 ```bash
-evmosd status | jq .SyncInfo
+0gchaind status | jq .SyncInfo
 ```
 Peers are being updated every 5 minutes
 
@@ -415,19 +411,19 @@ sudo systemctl stop ogd
 ```
 ### 3. Backup priv_validator_state.json 
 ```bash
-cp $HOME/.evmosd/data/priv_validator_state.json $HOME/.evmosd/priv_validator_state.json.backup
+cp $HOME/.0gchain/data/priv_validator_state.json $HOME/.0gchain/priv_validator_state.json.backup
 ```
 ### 4. Reset DB
 ```bash
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
+0gchaind tendermint unsafe-reset-all --home $HOME/.0gchain --keep-addr-book
 ```
 ### 5. Extract files fromt the arvhive 
 ```bash
-lz4 -d -c ./latest_snapshot.tar.lz4 | tar -xf - -C $HOME/.evmosd
+lz4 -d -c ./latest_snapshot.tar.lz4 | tar -xf - -C $HOME/.0gchain
 ```
 ### 6. Move priv_validator_state.json back
 ```bash
-mv $HOME/.evmosd/priv_validator_state.json.backup $HOME/.evmosd/data/priv_validator_state.json
+mv $HOME/.0gchain/priv_validator_state.json.backup $HOME/.0gchain/data/priv_validator_state.json
 ```
 ### 7. Restart the node
 ```bash
@@ -435,46 +431,46 @@ sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### 8. Check the synchronization status
 ```bash
-evmosd status | jq .SyncInfo
+0gchaind status | jq .SyncInfo
 ```
 Snapshot is being updated every 3 hours
 
 ## Useful commands
 ### Check node status 
 ```bash
-evmosd status | jq
+0gchaind status | jq
 ```
 ### Query your validator
 ```bash
-evmosd q staking validator $(evmosd keys show $WALLET_NAME --bech val -a) 
+0gchaind q staking validator $(0gchaind keys show $WALLET_NAME --bech val -a) 
 ```
 ### Query missed blocks counter & jail details of your validator
 ```bash
-evmosd q slashing signing-info $(evmosd tendermint show-validator)
+0gchaind q slashing signing-info $(0gchaind tendermint show-validator)
 ```
 ### Unjail your validator 
 ```bash
-evmosd tx slashing unjail --from $WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
+0gchaind tx slashing unjail --from $WALLET_NAME --gas=500000 --gas-prices=99999ua0gi -y
 ```
 ### Delegate tokens to your validator 
 ```bash 
-evmosd tx staking delegate $(evmosd keys show $WALLET_NAME --bech val -a)  <AMOUNT>aevmos --from $WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
+0gchaind tx staking delegate $(0gchaind keys show $WALLET_NAME --bech val -a)  <AMOUNT>ua0gi --from $WALLET_NAME --gas=500000 --gas-prices=99999ua0gi -y
 ```
 ### Get your p2p peer address
 ```bash
-evmosd status | jq -r '"\(.NodeInfo.id)@\(.NodeInfo.listen_addr)"'
+0gchaind status | jq -r '"\(.NodeInfo.id)@\(.NodeInfo.listen_addr)"'
 ```
 ### Edit your validator
 ```bash 
-evmosd tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --new-moniker="<NEW_MONIKER>" --identity="<KEY BASE PREFIX>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999aevmos -y
+0gchaind tx staking edit-validator --website="<WEBSITE>" --details="<DESCRIPTION>" --new-moniker="<NEW_MONIKER>" --identity="<KEY BASE PREFIX>" --from=$WALLET_NAME --gas=500000 --gas-prices=99999ua0gi -y
 ```
 ### Send tokens between wallets 
 ```bash
-evmosd tx bank send $WALLET_NAME <TO_WALLET> <AMOUNT>aevmos --gas=500000 --gas-prices=99999aevmos -y
+0gchaind tx bank send $WALLET_NAME <TO_WALLET> <AMOUNT>ua0gi --gas=500000 --gas-prices=99999ua0gi -y
 ```
 ### Query your wallet balance 
 ```bash
-evmosd q bank balances $(evmosd keys show $WALLET_NAME -a)
+0gchaind q bank balances $(0gchaind keys show $WALLET_NAME -a)
 ```
 ### Monitor server load
 ```bash 
@@ -484,14 +480,14 @@ htop
 ```
 ### Query active validators
 ```bash
-evmosd q staking validators -o json --limit=1000 \
+0gchaind q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
 ```
 ### Query inactive validators
 ```bash
-evmosd q staking validators -o json --limit=1000 \
+0gchaind q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
@@ -510,21 +506,24 @@ sudo systemctl stop ogd
 ```
 ### Upgrade the node
 ```bash
-cd 0g-evmos
-git fetch
-git checkout tags/<version>
-make install
-evmosd version
-# Restrt the node
+0G_VERSION=<version>
+
+cd $HOME
+rm -rf $HOME/0g-chain
+git clone -b $0G_VERSION https://github.com/0glabs/0g-chain.git
+./0g-chain/networks/testnet/install.sh
+source .profile
+0gchaind version
+# Restart the node
 sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
 ```
 ### Delete the node from the server
 ```bash
-# !!! IF YOU HAVE CREATED A VALIDATOR, MAKE SURE TO BACKUP `priv_validator_key.json` file located in $HOME/.evmosd/config/ 
+# !!! IF YOU HAVE CREATED A VALIDATOR, MAKE SURE TO BACKUP `priv_validator_key.json` file located in $HOME/.0gchain/config/ 
 sudo systemctl stop ogd
 sudo systemctl disable ogd
 sudo rm /etc/systemd/system/ogd.service
-rm -rf $HOME/.evmosd $HOME/0g-evmos
+rm -rf $HOME/.0gchain $HOME/0g-chain
 ```
 ### Example gRPC usage
 ```bash
@@ -533,13 +532,13 @@ tar -xvf grpcurl_1.7.0_linux_x86_64.tar.gz
 chmod +x grpcurl
 ./grpcurl  -plaintext  localhost:$GRPC_PORT list
 ### MAKE SURE gRPC is enabled in app.toml
-# grep -A 3 "\[grpc\]" /home/og-testnet-validator/.evmosd/config/app.toml
+# grep -A 3 "\[grpc\]" /home/og-testnet-validator/.0gchain/config/app.toml
 ```
 ### Example REST API query
 ```bash
 curl localhost:$API_PORT/cosmos/staking/v1beta1/validators
 ### MAKE SURE API is enabled in app.toml
-# grep -A 3 "\[api\]" /home/og-testnet-validator/.evmosd/config/app.toml
+# grep -A 3 "\[api\]" /home/og-testnet-validator/.0gchain/config/app.toml
 ```
 
 ___

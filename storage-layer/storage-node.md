@@ -108,11 +108,11 @@ To obtain a wallet private key, you have two options:
 
 `From MetaMask:` If you already have a wallet configured in MetaMask, you can use the private key associated with the MetaMask account.
 
-`Generate a New Wallet Using CLI:` If you prefer to create a new wallet, you can use the `evmosd` command-line interface. Follow the steps provided in this guide to generate a new wallet: [Create Wallet](https://github.com/trusted-point/0g-tools?tab=readme-ov-file#14-create-a-wallet-for-your-validator).
+`Generate a New Wallet Using CLI:` If you prefer to create a new wallet, you can use the `0gchaind` command-line interface. Follow the steps provided in this guide to generate a new wallet: [Create Wallet](https://github.com/trusted-point/0g-tools?tab=readme-ov-file#14-create-a-wallet-for-your-validator).
 
 After creating the wallet, you can use the following command to export the private key:
 ```bash
-evmosd keys unsafe-export-eth-key $WALLET_NAME
+0gchaind keys unsafe-export-eth-key $WALLET_NAME
 ```
 Store your private key in variable:
 ```bash
