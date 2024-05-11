@@ -144,8 +144,8 @@ go version
 ### 3. Build `0gchaind` binary
 ```bash
 git clone -b v0.1.0 https://github.com/0glabs/0g-chain.git
-./0g-chain/networks/testnet/install.sh
-source .profile
+cd 0g-chain
+make install
 0gchaind version
 ```
 ### 4. Set up variables
