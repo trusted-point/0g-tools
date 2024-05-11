@@ -198,13 +198,16 @@ sed -i \
 sed -i \
     -e "/\[api\]/,/^\[/{s/\(address = \"tcp:\/\/\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$API_PORT\4/}" \
     -e "/\[grpc\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_PORT\4/}" \
-    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.0gchain/config/app.toml
+    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" \
+    $HOME/.0gchain/config/app.toml
 ```
 ### 9. Configure pruning to save storage (Optional)
 ```bash
-sed -i.bak -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.0gchain/config/app.toml
-sed -i.bak -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.0gchain/config/app.toml
-sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"10\"/" $HOME/.0gchain/config/app.toml
+sed -i \
+    -e "s/^pruning *=.*/pruning = \"custom\"/" \
+    -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" \
+    -e "s/^pruning-interval *=.*/pruning-interval = \"10\"/" \
+    "$HOME/.0gchain/config/app.toml"
 ```
 
 ### 10. Set min gas price 
@@ -307,7 +310,7 @@ TRUST_HEIGHT=$((LATEST_HEIGHT - 1500)) && \
 TRUST_HASH=$(curl -s --max-time 3 --retry 2 --retry-connrefused "$RPC/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash) && \
 
 if [ -n "$PEERS" ] && [ -n "$RPC" ] && [ -n "$LATEST_HEIGHT" ] && [ -n "$TRUST_HEIGHT" ] && [ -n "$TRUST_HASH" ]; then
-    sed -i.bak \
+    sed -i \
         -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1true/}" \
         -e "/^rpc_servers =/ s|=.*|= \"$RPC,$RPC\"|;" \
         -e "/^trust_height =/ s/=.*/= $TRUST_HEIGHT/;" \
@@ -350,7 +353,7 @@ After some time you should see the following logs. It make take 5 minutes for th
 ```
 ### 7. Disable state sync
 ```bash
-sed -i.bak -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.0gchain/config/config.toml
+sed -i -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.0gchain/config/config.toml
 ```
 ## Download fresh addrbook.json
 
