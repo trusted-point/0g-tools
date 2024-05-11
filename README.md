@@ -220,9 +220,9 @@ sed -i "s/^indexer *=.*/indexer = \"kv\"/" $HOME/.0gchain/config/config.toml
 ```
 ### 12. Create a service file
 ```bash
-sudo tee /etc/systemd/system/ogd.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/0gd.service > /dev/null <<EOF
 [Unit]
-Description=OG Node
+Description=0G Node
 After=network.target
 
 [Service]
@@ -239,9 +239,9 @@ EOF
 ### 13. Start the node
 ```bash
 sudo systemctl daemon-reload && \
-sudo systemctl enable ogd && \
-sudo systemctl restart ogd && \
-sudo journalctl -u ogd -f -o cat
+sudo systemctl enable 0gd && \
+sudo systemctl restart 0gd && \
+sudo journalctl -u 0gd -f -o cat
 ```
 P.S. Consider [downloading snapshot](#download-snapshot) or using [state-sync](#state-sync) for the quick sync.
 
@@ -291,7 +291,7 @@ Do not forget to save `priv_validator_key.json` file located in $HOME/.0gchain/c
 
 ### 1. Stop the node
 ```bash
-sudo systemctl stop ogd
+sudo systemctl stop 0gd
 ```
 ### 2. Backup priv_validator_state.json 
 ```bash
@@ -328,7 +328,7 @@ mv $HOME/.0gchain/priv_validator_state.json.backup $HOME/.0gchain/data/priv_vali
 ```
 ### 5. Start the node
 ```bash
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
+sudo systemctl restart 0gd && sudo journalctl -u 0gd -f -o cat
 ```
 You should see the following logs. It may take up to 5 minutes for the snapshot to be discovered. If doesn't work, try downloading [snapshot](#download-snapshot)
 ```py
@@ -359,12 +359,12 @@ sed -i -e "/\[statesync\]/,/^\[/{s/\(enable = \).*$/\1false/}" $HOME/.0gchain/co
 
 ### 1. Stop the node and use `wget` to download the file
 ```bash
-sudo systemctl stop ogd && \
+sudo systemctl stop 0gd && \
 wget -O $HOME/.0gchain/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json
 ```
 ### 2. Restart the node
 ```bash
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
+sudo systemctl restart 0gd && sudo journalctl -u 0gd -f -o cat
 ```
 ### 3. Check the synchronization status
 ```bash
@@ -387,7 +387,7 @@ fi
 ```
 ### 2. Restart the node
 ```bash
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
+sudo systemctl restart 0gd && sudo journalctl -u 0gd -f -o cat
 ```
 ### 3. Check the synchronization status
 ```bash
@@ -403,7 +403,7 @@ wget https://rpc-zero-gravity-testnet.trusted-point.com/latest_snapshot.tar.lz4
 ```
 ### 2. Stop the node
 ```bash
-sudo systemctl stop ogd
+sudo systemctl stop 0gd
 ```
 ### 3. Backup priv_validator_state.json 
 ```bash
@@ -423,7 +423,7 @@ mv $HOME/.0gchain/priv_validator_state.json.backup $HOME/.0gchain/data/priv_vali
 ```
 ### 7. Restart the node
 ```bash
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
+sudo systemctl restart 0gd && sudo journalctl -u 0gd -f -o cat
 ```
 ### 8. Check the synchronization status
 ```bash
@@ -490,15 +490,15 @@ htop
 ```
 ### Check logs of the node
 ```bash
-sudo journalctl -u ogd -f -o cat
+sudo journalctl -u 0gd -f -o cat
 ```
 ### Restart the node
 ```bash
-sudo systemctl restart ogd
+sudo systemctl restart 0gd
 ```
 ### Stop the node
 ```bash
-sudo systemctl stop ogd
+sudo systemctl stop 0gd
 ```
 ### Upgrade the node
 ```bash
@@ -511,14 +511,14 @@ git clone -b $0G_VERSION https://github.com/0glabs/0g-chain.git
 source .profile
 0gchaind version
 # Restart the node
-sudo systemctl restart ogd && sudo journalctl -u ogd -f -o cat
+sudo systemctl restart 0gd && sudo journalctl -u 0gd -f -o cat
 ```
 ### Delete the node from the server
 ```bash
 # !!! IF YOU HAVE CREATED A VALIDATOR, MAKE SURE TO BACKUP `priv_validator_key.json` file located in $HOME/.0gchain/config/ 
-sudo systemctl stop ogd
-sudo systemctl disable ogd
-sudo rm /etc/systemd/system/ogd.service
+sudo systemctl stop 0gd
+sudo systemctl disable 0gd
+sudo rm /etc/systemd/system/0gd.service
 rm -rf $HOME/.0gchain $HOME/0g-chain
 ```
 ### Example gRPC usage
